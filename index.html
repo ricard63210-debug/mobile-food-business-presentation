@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conect-R | Portal Digital para Puestos y Food Trucks</title>
+  <meta name="description" content="Digitaliza tu puesto de comida o food truck desde $49/mes. Sin contratos, sin setup fee. Código QR + NFC para vendedores ambulatorios en Sacramento, CA." />
+  <meta property="og:title" content="Conect-R | Portal Digital para Puestos y Food Trucks" />
+  <meta property="og:description" content="Digitaliza tu puesto de comida desde $49/mes. Sin contratos, sin setup fee." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#00C9A7" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Favicon via inline SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-weight='800' font-size='26' fill='%2300C9A7'>CR</text></svg>" />
+
+  <style>
+    /* ===========================
+       CSS CUSTOM PROPERTIES
+    =========================== */
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #181818;
+      --teal: #00C9A7;
+      --teal-dim: rgba(0,201,167,0.15);
+      --teal-glow: rgba(0,201,167,0.3);
+      --gold: #D4AF37;
+      --gold-dim: rgba(212,175,55,0.15);
+      --red: #FF4B4B;
+      --red-dim: rgba(255,75,75,0.12);
+      --text: #F0F0F0;
+      --text-muted: #8A8A9A;
+      --border: rgba(255,255,255,0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* ===========================
+       TYPOGRAPHY SCALE
+    =========================== */
+    .display { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
+    .h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+    .h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; }
+    .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* ===========================
+       LAYOUT UTILITIES
+    =========================== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 100px 0; }
+    .section-alt { background: var(--bg2); }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title .h2 { margin-bottom: 12px; }
+    .section-title p { color: var(--text-muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+    .teal { color: var(--teal); }
+    .gold { color: var(--gold); }
+    .red { color: var(--red); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+
+    /* ===========================
+       LANGUAGE TOGGLE
+    =========================== */
+    #lang-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #1a1a1a;
+      color: var(--teal);
+      border: 1.5px solid var(--teal);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0,201,167,0.2);
+    }
+    #lang-toggle:hover {
+      background: var(--teal);
+      color: #0a0a0a;
+      box-shadow: 0 4px 20px rgba(0,201,167,0.4);
+    }
+
+    /* ===========================
+       SCROLL ANIMATIONS
+    =========================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ===========================
+       SECTION 1 — HERO
+    =========================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,201,167,0.1) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212,175,55,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Animated grid lines */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+    .hero-logo .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--teal-dim);
+      border: 1px solid rgba(0,201,167,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
+    .hero-badge::before { content: '📍'; }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      max-width: 820px;
+    }
+    .hero-headline .accent { color: var(--teal); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 44px;
+    }
+    .hero-sub strong { color: var(--gold); font-weight: 700; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--teal);
+      color: #0a0a0a;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 36px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 24px rgba(0,201,167,0.35);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,201,167,0.5);
+    }
+    .btn-primary .arrow { transition: transform 0.2s ease; }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .hero-trust {
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .trust-item .check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal);
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    /* ===========================
+       SECTION 2 — PROBLEM
+    =========================== */
+    #problem { padding: 100px 0; background: var(--bg2); }
+
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,201,167,0.12);
+    }
+    .stat-card .icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+    .stat-card .stat-value {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-card .stat-label { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* ===========================
+       SECTION 3 — CALCULATOR
+    =========================== */
+    #calculator { padding: 100px 0; }
+
+    .calc-wrapper {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .slider-group { margin-bottom: 48px; }
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .slider-label span:first-child { font-weight: 600; font-size: 1rem; }
+    .slider-value {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--teal);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--bg3);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 12px rgba(0,201,167,0.5);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+    .calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .result-block {
+      background: var(--bg3);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--border);
+    }
+    .result-block.without { border-top: 3px solid var(--red); }
+    .result-block.with { border-top: 3px solid var(--teal); }
+
+    .result-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .result-label.red-label { color: var(--red); }
+    .result-label.teal-label { color: var(--teal); }
+
+    .result-monthly {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .result-annual {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .bar-container {
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .bar-fill.red-bar { background: linear-gradient(90deg, #FF4B4B, #FF8080); }
+    .bar-fill.teal-bar { background: linear-gradient(90deg, #00C9A7, #00E5C0); }
+
+    .calc-diff {
+      margin-top: 28px;
+      padding: 20px 24px;
+      background: var(--teal-dim);
+      border: 1px solid rgba(0,201,167,0.3);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .calc-diff .diff-label { font-size: 0.9rem; color: var(--text-muted); }
+    .calc-diff .diff-values { text-align: right; }
+    .calc-diff .diff-monthly { font-size: 1.5rem; font-weight: 900; color: var(--teal); }
+    .calc-diff .diff-annual { font-size: 0.85rem; color: var(--teal); opacity: 0.8; }
+
+    @media (max-width: 580px) {
+      .calc-wrapper { padding: 28px 20px; }
+      .calc-results { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       SECTION 4 — SAVINGS
+    =========================== */
+    #savings { padding: 100px 0; background: var(--bg2); }
+
+    .saving-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: transform 0.3s ease;
+    }
+    .saving-card:hover { transform: translateY(-3px); }
+    .saving-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--teal-dim);
+      border: 1px solid rgba(0,201,167,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .saving-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .saving-text p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+    .saving-amount { font-size: 1.3rem; font-weight: 900; color: var(--teal); }
+
+    .savings-list { display: grid; gap: 16px; max-width: 820px; margin: 0 auto 28px; }
+
+    .total-card {
+      max-width: 820px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.06));
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .total-label { font-size: 1rem; font-weight: 600; color: var(--text-muted); max-width: 320px; line-height: 1.4; }
+    .total-amount { font-size: 2.4rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
+
+    /* ===========================
+       SECTION 5 — MARGINS
+    =========================== */
+    #margins { padding: 100px 0; }
+
+    .margins-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 900px;
+      margin: 0 auto 36px;
+    }
+
+    .margin-card {
+      border-radius: var(--radius);
+      padding: 36px;
+      border: 1px solid var(--border);
+    }
+    .margin-card.no-portal {
+      background: var(--red-dim);
+      border-color: rgba(255,75,75,0.25);
+    }
+    .margin-card.with-portal {
+      background: var(--teal-dim);
+      border-color: rgba(0,201,167,0.3);
+    }
+
+    .margin-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .margin-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .margin-badge.red-badge { background: rgba(255,75,75,0.2); color: var(--red); }
+    .margin-badge.teal-badge { background: rgba(0,201,167,0.2); color: var(--teal); }
+
+    .margin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .margin-row:last-child { border-bottom: none; }
+    .margin-row .row-key { color: var(--text-muted); }
+    .margin-row .row-val { font-weight: 700; }
+    .margin-profit {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .margin-profit-value {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+    .margin-profit-value.red-val { color: var(--red); }
+    .margin-profit-value.teal-val { color: var(--teal); }
+
+    .margin-diff {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .margin-diff-value { font-size: 2.8rem; font-weight: 900; color: var(--teal); margin-bottom: 8px; }
+    .margin-diff-msg { font-size: 1.05rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+    .margin-diff-msg em { color: var(--teal); font-style: normal; font-weight: 600; }
+
+    @media (max-width: 640px) {
+      .margins-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       SECTION 6 — PRICING
+    =========================== */
+    #pricing { padding: 100px 0; background: var(--bg2); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .plan-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .plan-card:hover { transform: translateY(-6px); }
+    .plan-card.recommended {
+      border-color: var(--teal);
+      box-shadow: 0 0 40px rgba(0,201,167,0.15);
+    }
+
+    .plan-recommended-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--teal);
+      color: #0a0a0a;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .plan-price {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--teal);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .plan-period { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    .plan-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .plan-badge::before { content: '⭐'; }
+
+    .plan-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 28px;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      font-size: 0.92rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .plan-features li:last-child { border-bottom: none; }
+    .plan-features .check-icon {
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.85rem;
+    }
+
+    .btn-plan {
+      display: block;
+      text-align: center;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-plan-outline {
+      border: 2px solid var(--teal);
+      color: var(--teal);
+    }
+    .btn-plan-outline:hover { background: var(--teal); color: #0a0a0a; }
+    .btn-plan-solid {
+      background: var(--teal);
+      color: #0a0a0a;
+      border: 2px solid var(--teal);
+      box-shadow: 0 4px 20px rgba(0,201,167,0.3);
+    }
+    .btn-plan-solid:hover {
+      background: #00e5c0;
+      box-shadow: 0 6px 28px rgba(0,201,167,0.5);
+    }
+
+    /* ===========================
+       SECTION 7 — NFC
+    =========================== */
+    #nfc { padding: 100px 0; }
+
+    .nfc-content {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .nfc-explanation {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      margin-bottom: 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .nfc-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      background: var(--teal-dim);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nfc-explanation h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+    .nfc-explanation p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+    .nfc-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .nfc-table th {
+      background: var(--bg3);
+      padding: 16px 24px;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .nfc-table td {
+      background: var(--bg2);
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .nfc-table tr:last-child td { border-bottom: none; }
+    .nfc-table .tier-range { font-weight: 700; }
+    .nfc-table .tier-price { font-size: 1.2rem; font-weight: 900; color: var(--teal); }
+
+    @media (max-width: 560px) {
+      .nfc-explanation { flex-direction: column; }
+    }
+
+    /* ===========================
+       SECTION 8 — FINAL CTA
+    =========================== */
+    #final-cta {
+      padding: 120px 0;
+      background: linear-gradient(135deg, rgba(0,201,167,0.12) 0%, rgba(0,0,0,0) 60%, rgba(212,175,55,0.06) 100%);
+      position: relative;
+      text-align: center;
+    }
+    #final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,201,167,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-headline { margin-bottom: 16px; }
+    .final-sub { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .final-sub strong { color: var(--gold); }
+
+    .final-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-ghost:hover { border-color: var(--text-muted); background: rgba(255,255,255,0.04); }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer .logo { color: var(--teal); font-weight: 800; font-size: 1rem; margin-bottom: 8px; }
+    footer .footer-links { display: flex; gap: 24px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+    footer .footer-links a { color: var(--text-muted); transition: color 0.2s; }
+    footer .footer-links a:hover { color: var(--teal); }
+
+    /* ===========================
+       MOBILE RESPONSIVE
+    =========================== */
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .section-title { margin-bottom: 40px; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .total-card { flex-direction: column; text-align: center; }
+      .total-label { max-width: 100%; }
+      .final-headline { font-size: clamp(2rem, 7vw, 3rem); }
+    }
+
+    @media (max-width: 480px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      #lang-toggle { top: 12px; right: 12px; }
+    }
+
+    /* ===========================
+       MISC HELPERS
+    =========================== */
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+      border-radius: 100px;
+      margin: 16px auto 0;
+    }
+    .num-mono { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+
+  <!-- LANGUAGE TOGGLE -->
+  <button id="lang-toggle" aria-label="Switch language">EN</button>
+
+  <!-- ============================
+       SECTION 1 — HERO
+  ============================= -->
+  <section id="hero">
+    <div class="hero-logo">
+      <span class="dot"></span>
+      CONECT-R
+    </div>
+
+    <div class="hero-badge" data-es="Sacramento, CA · Puestos &amp; Food Trucks" data-en="Sacramento, CA · Food Stands &amp; Food Trucks">Sacramento, CA · Puestos &amp; Food Trucks</div>
+
+    <h1 class="hero-headline fade-up">
+      <span data-es="¿Tu puesto de comida está&nbsp;" data-en="Is your food stand&nbsp;">¿Tu puesto de comida está&nbsp;</span><span class="accent" data-es="perdiendo clientes cada día?" data-en="losing customers every day?">perdiendo clientes cada día?</span>
+    </h1>
+
+    <p class="hero-sub fade-up delay-1">
+      <span data-es="Digitaliza tu negocio desde " data-en="Digitize your business from ">Digitaliza tu negocio desde </span><strong data-es="$49/mes" data-en="$49/month">$49/mes</strong><span data-es=" — sin contratos, sin setup fee" data-en=" — no contracts, no setup fee"> — sin contratos, sin setup fee</span>
+    </p>
+
+    <a href="#problem" class="btn-primary fade-up delay-2" id="hero-cta">
+      <span data-es="Ver cómo funciona" data-en="See how it works">Ver cómo funciona</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <div class="hero-trust fade-up delay-3">
+      <div class="trust-item">
+        <div class="check">✓</div>
+        <span data-es="Sin contratos" data-en="No contracts">Sin contratos</span>
+      </div>
+      <div class="trust-item">
+        <div class="check">✓</div>
+        <span data-es="Setup gratis" data-en="Free setup">Setup gratis</span>
+      </div>
+      <div class="trust-item">
+        <div class="check">✓</div>
+        <span data-es="Cancelación en cualquier momento" data-en="Cancel anytime">Cancelación en cualquier momento</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 2 — PROBLEM
+  ============================= -->
+  <section id="problem" class="section section-alt">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="El costo invisible" data-en="The invisible cost">El costo invisible</p>
+        <h2 class="h2" data-es="Lo que te cuesta no tener presencia digital" data-en="What it costs you to have no digital presence">Lo que te cuesta no tener presencia digital</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="grid-4">
+        <div class="stat-card fade-up delay-1">
+          <span class="icon">🚶</span>
+          <div class="stat-value num-mono" data-target="60" data-suffix="%">0%</div>
+          <div class="stat-label" data-es="Clientes que pasan sin saber qué vendes" data-en="Customers who walk by without knowing what you sell">Clientes que pasan sin saber qué vendes</div>
+        </div>
+        <div class="stat-card fade-up delay-2">
+          <span class="icon">📵</span>
+          <div class="stat-value num-mono" data-target="40" data-suffix="%">0%</div>
+          <div class="stat-label" data-es="Pedidos perdidos por no tener menú visible" data-en="Lost orders from having no visible menu">Pedidos perdidos por no tener menú visible</div>
+        </div>
+        <div class="stat-card fade-up delay-3">
+          <span class="icon">⏱️</span>
+          <div class="stat-value num-mono" data-target="45" data-suffix=" min">0 min</div>
+          <div class="stat-label" data-es="Minutos al día explicando el menú verbalmente" data-en="Minutes per day explaining the menu verbally">Minutos al día explicando el menú verbalmente</div>
+        </div>
+        <div class="stat-card fade-up delay-4">
+          <span class="icon">💸</span>
+          <div class="stat-value num-mono" id="money-stat">$0</div>
+          <div class="stat-label" data-es="Ventas perdidas por no aceptar pagos digitales fácilmente" data-en="Lost sales from not accepting digital payments easily">Ventas perdidas por no aceptar pagos digitales fácilmente</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 3 — CALCULATOR
+  ============================= -->
+  <section id="calculator" class="section">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="Calculadora de ventas" data-en="Sales calculator">Calculadora de ventas</p>
+        <h2 class="h2" data-es="¿Cuánto puedes vender con el portal?" data-en="How much can you sell with the portal?">¿Cuánto puedes vender con el portal?</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="calc-wrapper fade-up">
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-es="Clientes diarios promedio" data-en="Average daily customers">Clientes diarios promedio</span>
+            <span class="slider-value num-mono" id="slider-display">80</span>
+          </div>
+          <input type="range" id="customers-slider" min="20" max="200" value="80" aria-label="Daily customers" />
+          <div style="display:flex;justify-content:space-between;margin-top:6px;">
+            <span style="font-size:0.78rem;color:var(--text-muted);">20</span>
+            <span style="font-size:0.78rem;color:var(--text-muted);">200</span>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="result-block without">
+            <div class="result-label red-label" data-es="SIN PORTAL" data-en="WITHOUT PORTAL">SIN PORTAL</div>
+            <div class="result-monthly red num-mono" id="without-monthly">$0</div>
+            <div class="result-annual" id="without-annual-label">
+              <span data-es="al mes" data-en="per month">al mes</span>
+            </div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px;">
+              <span data-es="Anual: " data-en="Annual: ">Anual: </span><span class="num-mono" id="without-annual">$0</span>
+            </div>
+            <div class="bar-container"><div class="bar-fill red-bar" id="bar-without" style="width:50%"></div></div>
+            <div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);">
+              <span data-es="Ticket promedio: " data-en="Avg ticket: ">Ticket promedio: </span><strong>$12</strong>
+            </div>
+          </div>
+
+          <div class="result-block with">
+            <div class="result-label teal-label" data-es="CON PORTAL" data-en="WITH PORTAL">CON PORTAL</div>
+            <div class="result-monthly teal num-mono" id="with-monthly">$0</div>
+            <div class="result-annual">
+              <span data-es="al mes" data-en="per month">al mes</span>
+            </div>
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px;">
+              <span data-es="Anual: " data-en="Annual: ">Anual: </span><span class="num-mono" id="with-annual">$0</span>
+            </div>
+            <div class="bar-container"><div class="bar-fill teal-bar" id="bar-with" style="width:70%"></div></div>
+            <div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);">
+              <span data-es="Ticket promedio: " data-en="Avg ticket: ">Ticket promedio: </span><strong>$15</strong> <span style="color:var(--teal);">(+25%)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-diff">
+          <div class="diff-label">
+            <strong data-es="💰 Diferencia mensual y anual con Conect-R" data-en="💰 Monthly & Annual Difference with Conect-R">💰 Diferencia mensual y anual con Conect-R</strong>
+          </div>
+          <div class="diff-values">
+            <div class="diff-monthly num-mono" id="diff-monthly">+$0/mes</div>
+            <div class="diff-annual num-mono" id="diff-annual">+$0/año</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 4 — SAVINGS
+  ============================= -->
+  <section id="savings" class="section section-alt">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="Análisis de ahorro" data-en="Savings analysis">Análisis de ahorro</p>
+        <h2 class="h2" data-es="¿Cuánto te ahorras al año?" data-en="How much do you save per year?">¿Cuánto te ahorras al año?</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="savings-list">
+        <div class="saving-card fade-up">
+          <div class="saving-icon">🖨️</div>
+          <div class="saving-text">
+            <h3 data-es="Impresión de menús eliminada" data-en="Menu printing eliminated">Impresión de menús eliminada</h3>
+            <p data-es="Cada actualización de precios, temporada o nuevo platillo ya no requiere reimpresión." data-en="Every price update, seasonal change or new dish no longer requires reprinting.">Cada actualización de precios, temporada o nuevo platillo ya no requiere reimpresión.</p>
+            <div class="saving-amount">$300–$600<span style="font-size:0.85rem;font-weight:500;color:var(--text-muted);"> <span data-es="/año" data-en="/year">/año</span></span></div>
+          </div>
+        </div>
+
+        <div class="saving-card fade-up delay-1">
+          <div class="saving-icon">👤</div>
+          <div class="saving-text">
+            <h3 data-es="Tiempo de staff explicando el menú" data-en="Staff time explaining the menu">Tiempo de staff explicando el menú</h3>
+            <p data-es="45 min/día × $15/hr × 365 días = tiempo valioso de regreso." data-en="45 min/day × $15/hr × 365 days = valuable time back.">45 min/día × $15/hr × 365 días = tiempo valioso de regreso.</p>
+            <div class="saving-amount">$4,106<span style="font-size:0.85rem;font-weight:500;color:var(--text-muted);"> <span data-es="/año" data-en="/year">/año</span></span></div>
+          </div>
+        </div>
+
+        <div class="saving-card fade-up delay-2">
+          <div class="saving-icon">🌙</div>
+          <div class="saving-text">
+            <h3 data-es="Clientes capturados fuera de horario vía QR" data-en="Customers captured after hours via QR">Clientes capturados fuera de horario vía QR</h3>
+            <p data-es="Tu menú trabaja 24/7. Alguien escanea tu QR a las 11pm y regresa al día siguiente." data-en="Your menu works 24/7. Someone scans your QR at 11pm and comes back the next day.">Tu menú trabaja 24/7. Alguien escanea tu QR a las 11pm y regresa al día siguiente.</p>
+            <div class="saving-amount">+$1,200<span style="font-size:0.85rem;font-weight:500;color:var(--text-muted);"> <span data-es="/año adicional" data-en="/year additional">/año adicional</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-card fade-up">
+        <div class="total-label" data-es="Ahorro + ganancia adicional estimada al año" data-en="Estimated annual savings + additional revenue">Ahorro + ganancia adicional estimada al año</div>
+        <div class="total-amount">$5,600–$6,000<span style="font-size:1rem;font-weight:500;color:var(--gold);opacity:0.7;"> <span data-es="/año" data-en="/yr">/año</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 5 — PROFIT MARGINS
+  ============================= -->
+  <section id="margins" class="section">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="Impacto en tus ganancias" data-en="Impact on your profits">Impacto en tus ganancias</p>
+        <h2 class="h2" data-es="Tus márgenes con y sin portal" data-en="Your margins with and without a portal">Tus márgenes con y sin portal</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="margins-grid fade-up">
+        <!-- Without portal -->
+        <div class="margin-card no-portal">
+          <div class="margin-card-header">
+            <span class="margin-badge red-badge" data-es="SIN PORTAL" data-en="WITHOUT PORTAL">SIN PORTAL</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Ticket promedio" data-en="Avg ticket">Ticket promedio</span>
+            <span class="row-val">$12</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Clientes diarios" data-en="Daily customers">Clientes diarios</span>
+            <span class="row-val num-mono" id="m-customers-no">80</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Margen operativo" data-en="Operating margin">Margen operativo</span>
+            <span class="row-val">27%</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Ingreso mensual" data-en="Monthly revenue">Ingreso mensual</span>
+            <span class="row-val num-mono" id="m-rev-no">$28,800</span>
+          </div>
+          <div class="margin-profit" data-es="GANANCIA MENSUAL ESTIMADA" data-en="EST. MONTHLY PROFIT">GANANCIA MENSUAL ESTIMADA</div>
+          <div class="margin-profit-value red-val num-mono" id="m-profit-no">$7,776</div>
+        </div>
+
+        <!-- With portal -->
+        <div class="margin-card with-portal">
+          <div class="margin-card-header">
+            <span class="margin-badge teal-badge" data-es="CON PORTAL" data-en="WITH PORTAL">CON PORTAL</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Ticket promedio" data-en="Avg ticket">Ticket promedio</span>
+            <span class="row-val teal">$15</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Clientes diarios (+15% retorno)" data-en="Daily customers (+15% return)">Clientes diarios (+15% retorno)</span>
+            <span class="row-val teal num-mono" id="m-customers-yes">92</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Margen operativo" data-en="Operating margin">Margen operativo</span>
+            <span class="row-val">27%</span>
+          </div>
+          <div class="margin-row">
+            <span class="row-key" data-es="Ingreso mensual" data-en="Monthly revenue">Ingreso mensual</span>
+            <span class="row-val teal num-mono" id="m-rev-yes">$41,400</span>
+          </div>
+          <div class="margin-profit" data-es="GANANCIA MENSUAL ESTIMADA" data-en="EST. MONTHLY PROFIT">GANANCIA MENSUAL ESTIMADA</div>
+          <div class="margin-profit-value teal-val num-mono" id="m-profit-yes">$11,178</div>
+        </div>
+      </div>
+
+      <div class="margin-diff fade-up delay-2">
+        <div class="margin-diff-value num-mono" id="m-diff-value">+$3,402</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;" data-es="diferencia en ganancia mensual" data-en="difference in monthly profit">diferencia en ganancia mensual</div>
+        <div class="margin-diff-msg">
+          <em data-es="Esa diferencia es lo que Conect-R te pone en el bolsillo cada mes." data-en="That difference is what Conect-R puts in your pocket every month.">Esa diferencia es lo que Conect-R te pone en el bolsillo cada mes.</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 6 — PRICING
+  ============================= -->
+  <section id="pricing" class="section section-alt">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="Precios transparentes" data-en="Transparent pricing">Precios transparentes</p>
+        <h2 class="h2" data-es="Planes diseñados para tu puesto" data-en="Plans designed for your food stand">Planes diseñados para tu puesto</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- QR Básico -->
+        <div class="plan-card fade-up">
+          <div class="plan-name" data-es="QR Básico" data-en="QR Basic">QR Básico</div>
+          <div class="plan-price">$49</div>
+          <div class="plan-period" data-es="/mes" data-en="/month">/mes</div>
+          <div class="plan-badge" data-es="Setup gratis (valor $100)" data-en="Free setup (value $100)">Setup gratis (valor $100)</div>
+          <ul class="plan-features">
+            <li><span class="check-icon">✓</span> <span data-es="Menú digital con fotos" data-en="Digital menu with photos">Menú digital con fotos</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Código QR imprimible gratis" data-en="Free printable QR code">Código QR imprimible gratis</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Actualizaciones de menú incluidas" data-en="Menu updates included">Actualizaciones de menú incluidas</span></li>
+          </ul>
+          <a id="btn-basic-sms" href="#" class="btn-plan btn-plan-outline" data-es="Quiero este plan" data-en="I want this plan">Quiero este plan</a>
+        </div>
+
+        <!-- QR Pro -->
+        <div class="plan-card recommended fade-up delay-1">
+          <div class="plan-recommended-badge" data-es="⭐ Recomendado" data-en="⭐ Recommended">⭐ Recomendado</div>
+          <div class="plan-name">QR Pro</div>
+          <div class="plan-price">$79</div>
+          <div class="plan-period" data-es="/mes" data-en="/month">/mes</div>
+          <div class="plan-badge" data-es="Setup gratis (valor $100)" data-en="Free setup (value $100)">Setup gratis (valor $100)</div>
+          <ul class="plan-features">
+            <li><span class="check-icon">✓</span> <span data-es="Todo lo del plan básico" data-en="Everything in basic plan">Todo lo del plan básico</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Links de pago: Venmo, CashApp, Zelle" data-en="Payment links: Venmo, CashApp, Zelle">Links de pago: Venmo, CashApp, Zelle</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Redes sociales enlazadas" data-en="Linked social media">Redes sociales enlazadas</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Horarios y ubicación" data-en="Hours and location">Horarios y ubicación</span></li>
+            <li><span class="check-icon">✓</span> <span data-es="Asistente IA básico 24/7" data-en="Basic 24/7 AI assistant">Asistente IA básico 24/7</span></li>
+          </ul>
+          <a id="btn-pro-sms" href="#" class="btn-plan btn-plan-solid" data-es="Quiero este plan" data-en="I want this plan">Quiero este plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 7 — NFC UPGRADE
+  ============================= -->
+  <section id="nfc" class="section">
+    <div class="container">
+      <div class="section-title fade-up">
+        <p class="label teal" data-es="Siguiente nivel" data-en="Next level">Siguiente nivel</p>
+        <h2 class="h2" data-es="¿Listo para el siguiente nivel? Agrega NFC" data-en="Ready for the next level? Add NFC">¿Listo para el siguiente nivel? Agrega NFC</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="nfc-content">
+        <div class="nfc-explanation fade-up">
+          <div class="nfc-icon">📲</div>
+          <div>
+            <h3 data-es="Empieza con QR, evoluciona a NFC" data-en="Start with QR, evolve to NFC">Empieza con QR, evoluciona a NFC</h3>
+            <p data-es="Empieza con tu QR gratis — cuando veas los resultados, upgradea a stands NFC personalizados con tu marca. Tus clientes solo acercan el teléfono y acceden a tu portal al instante." data-en="Start with your free QR — when you see the results, upgrade to custom NFC stands with your brand. Customers just tap their phone and instantly access your portal.">Empieza con tu QR gratis — cuando veas los resultados, upgradea a stands NFC personalizados con tu marca. Tus clientes solo acercan el teléfono y acceden a tu portal al instante.</p>
+          </div>
+        </div>
+
+        <table class="nfc-table fade-up delay-1">
+          <thead>
+            <tr>
+              <th data-es="Cantidad" data-en="Quantity">Cantidad</th>
+              <th data-es="Precio por unidad" data-en="Price per unit">Precio por unidad</th>
+              <th data-es="Ahorro total" data-en="Total savings">Ahorro total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tier-range" data-es="1–49 unidades" data-en="1–49 units">1–49 unidades</td>
+              <td class="tier-price">$20<span style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"> <span data-es="c/u" data-en="each">c/u</span></span></td>
+              <td style="color:var(--text-muted);" data-es="Precio base" data-en="Base price">Precio base</td>
+            </tr>
+            <tr>
+              <td class="tier-range" data-es="50–99 unidades" data-en="50–99 units">50–99 unidades</td>
+              <td class="tier-price">$15<span style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"> <span data-es="c/u" data-en="each">c/u</span></span></td>
+              <td style="color:var(--teal);font-weight:700;" data-es="Ahorras $5/u" data-en="Save $5/unit">Ahorras $5/u</td>
+            </tr>
+            <tr>
+              <td class="tier-range" data-es="100+ unidades" data-en="100+ units">100+ unidades</td>
+              <td class="tier-price">$10<span style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"> <span data-es="c/u" data-en="each">c/u</span></span></td>
+              <td style="color:var(--gold);font-weight:700;" data-es="Ahorras $10/u" data-en="Save $10/unit">Ahorras $10/u</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 8 — FINAL CTA
+  ============================= -->
+  <section id="final-cta" class="section">
+    <div class="container">
+      <div class="fade-up">
+        <p class="label teal" style="text-align:center;margin-bottom:16px;" data-es="Oferta de lanzamiento" data-en="Launch offer">Oferta de lanzamiento</p>
+        <h2 class="h2 final-headline display" data-es="Tu puesto merece una presencia digital." data-en="Your food stand deserves a digital presence.">Tu puesto merece una presencia digital.</h2>
+        <p class="final-sub">
+          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="10 clientes sin setup fee" data-en="10 clients with no setup fee">10 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
+        </p>
+        <div class="final-buttons">
+          <a href="https://ricardo-orozco.conect-r.com" target="_blank" rel="noopener" class="btn-primary" id="final-cta-btn">
+            <span data-es="Agenda tu demo gratis" data-en="Schedule your free demo">Agenda tu demo gratis</span>
+            <span class="arrow">→</span>
+          </a>
+          <a href="https://digital-menu-presentation.conect-r.com" target="_blank" rel="noopener" class="btn-ghost">
+            <span data-es="Ver presentación completa" data-en="View full presentation">Ver presentación completa</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">CONECT-R</div>
+    <p data-es="Portal digital para puestos de comida y food trucks · Sacramento, CA" data-en="Digital portal for food stands and food trucks · Sacramento, CA">Portal digital para puestos de comida y food trucks · Sacramento, CA</p>
+    <div class="footer-links">
+      <a href="https://ricardo-orozco.conect-r.com" target="_blank" data-es="Contacto" data-en="Contact">Contacto</a>
+      <a href="https://digital-menu-presentation.conect-r.com" target="_blank" data-es="Presentación" data-en="Presentation">Presentación</a>
+    </div>
+    <p style="font-size:0.78rem;opacity:0.5;">© 2025 Conect-R. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
+  </footer>
+
+  <script>
+    /* ===========================
+       LANGUAGE TOGGLE SYSTEM
+    =========================== */
+    let currentLang = 'es';
+
+    const smsNumber = '9168120873';
+    const smsMessages = {
+      basic: {
+        es: "Hola Ricardo, me interesa el plan QR Básico de $49/mes para mi puesto. ¿Cuándo podemos hablar?",
+        en: "Hi Ricardo, I'm interested in the QR Basic plan at $49/month for my food stand. When can we talk?"
+      },
+      pro: {
+        es: "Hola Ricardo, me interesa el plan QR Pro de $79/mes para mi puesto. ¿Cuándo podemos hablar?",
+        en: "Hi Ricardo, I'm interested in the QR Pro plan at $79/month for my food stand. When can we talk?"
+      }
+    };
+
+    function updatePlanSmsLinks() {
+      const basicBtn = document.getElementById('btn-basic-sms');
+      const proBtn = document.getElementById('btn-pro-sms');
+      if (basicBtn) {
+        const msg = smsMessages.basic[currentLang];
+        basicBtn.href = `sms:${smsNumber}?body=${encodeURIComponent(msg)}`;
+      }
+      if (proBtn) {
+        const msg = smsMessages.pro[currentLang];
+        proBtn.href = `sms:${smsNumber}?body=${encodeURIComponent(msg)}`;
+      }
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const btn = document.getElementById('lang-toggle');
+
+      document.querySelectorAll('[data-es]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+
+      btn.textContent = lang === 'es' ? 'EN' : 'ES';
+      document.documentElement.lang = lang;
+
+      // Update dynamic calculator labels
+      updateCalcLabels();
+
+      // Update SMS plan links
+      updatePlanSmsLinks();
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      setLanguage(currentLang === 'es' ? 'en' : 'es');
+    });
+
+    function updateCalcLabels() {
+      const isEs = currentLang === 'es';
+      const monthLabel = isEs ? '/mes' : '/mo';
+      const yearLabel = isEs ? '/año' : '/yr';
+      const diffMonthSuffix = isEs ? '/mes' : '/mo';
+      const diffAnnualSuffix = isEs ? '/año' : '/yr';
+
+      // Update diff labels
+      updateDiffLabels(diffMonthSuffix, diffAnnualSuffix);
+    }
+
+    function updateDiffLabels(monthSuffix, yearSuffix) {
+      // Called from updateCalc, just ensures correct suffixes
+    }
+
+    /* ===========================
+       CALCULATOR
+    =========================== */
+    const slider = document.getElementById('customers-slider');
+    const sliderDisplay = document.getElementById('slider-display');
+
+    function formatMoney(n) {
+      return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    }
+
+    function updateCalc() {
+      const customers = parseInt(slider.value);
+      sliderDisplay.textContent = customers;
+
+      const TICKET_NO = 12;
+      const TICKET_YES = 15;
+      const DAYS = 30;
+      const RETURN_BOOST = 1.15;
+      const MARGIN = 0.27;
+
+      const revNoMonthly = customers * TICKET_NO * DAYS;
+      const revYesMonthly = Math.round(customers * RETURN_BOOST) * TICKET_YES * DAYS;
+      const revNoAnnual = revNoMonthly * 12;
+      const revYesAnnual = revYesMonthly * 12;
+      const diffMonthly = revYesMonthly - revNoMonthly;
+      const diffAnnual = revYesAnnual - revNoAnnual;
+
+      // Bars: max reference = customers=200 with portal
+      const maxRef = 200 * RETURN_BOOST * TICKET_YES * DAYS;
+      const barNo = Math.round((revNoMonthly / maxRef) * 100);
+      const barYes = Math.round((revYesMonthly / maxRef) * 100);
+
+      document.getElementById('without-monthly').textContent = formatMoney(revNoMonthly);
+      document.getElementById('without-annual').textContent = formatMoney(revNoAnnual);
+      document.getElementById('with-monthly').textContent = formatMoney(revYesMonthly);
+      document.getElementById('with-annual').textContent = formatMoney(revYesAnnual);
+      document.getElementById('bar-without').style.width = Math.min(barNo, 100) + '%';
+      document.getElementById('bar-with').style.width = Math.min(barYes, 100) + '%';
+
+      const isEs = currentLang === 'es';
+      const mSuffix = isEs ? '/mes' : '/mo';
+      const ySuffix = isEs ? '/año' : '/yr';
+      document.getElementById('diff-monthly').textContent = '+' + formatMoney(diffMonthly) + mSuffix;
+      document.getElementById('diff-annual').textContent = '+' + formatMoney(diffAnnual) + ySuffix;
+
+      // Section 5: Margins
+      const cNo = customers;
+      const cYes = Math.round(customers * RETURN_BOOST);
+      const mRevNo = cNo * TICKET_NO * DAYS;
+      const mRevYes = cYes * TICKET_YES * DAYS;
+      const mProfitNo = Math.round(mRevNo * MARGIN);
+      const mProfitYes = Math.round(mRevYes * MARGIN);
+      const mDiff = mProfitYes - mProfitNo;
+
+      document.getElementById('m-customers-no').textContent = cNo;
+      document.getElementById('m-customers-yes').textContent = cYes;
+      document.getElementById('m-rev-no').textContent = formatMoney(mRevNo);
+      document.getElementById('m-rev-yes').textContent = formatMoney(mRevYes);
+      document.getElementById('m-profit-no').textContent = formatMoney(mProfitNo);
+      document.getElementById('m-profit-yes').textContent = formatMoney(mProfitYes);
+      document.getElementById('m-diff-value').textContent = '+' + formatMoney(mDiff);
+    }
+
+    slider.addEventListener('input', updateCalc);
+    updateCalc(); // init
+
+    /* ===========================
+       INTERSECTION OBSERVER
+       — Fade animations + counters
+    =========================== */
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+    // Counter animation
+    function animateCounter(el, target, suffix, duration = 1400) {
+      let start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Money counter for the 4th stat card
+    function animateMoneyRange(el, low, high, duration = 1600) {
+      let start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const lo = Math.round(eased * low);
+        const hi = Math.round(eased * high);
+        el.textContent = '$' + lo + '–$' + hi;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-target'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          animateCounter(el, target, suffix);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+    // Money stat special observer
+    const moneyStatEl = document.getElementById('money-stat');
+    const moneyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateMoneyRange(moneyStatEl, 200, 400, 1600);
+          moneyObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    moneyObserver.observe(moneyStatEl);
+
+    /* ===========================
+       SMOOTH SCROLL POLYFILL
+       (for older Safari)
+    =========================== */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* ===========================
+       SLIDER TRACK GRADIENT
+    =========================== */
+    function updateSliderTrack() {
+      const min = parseInt(slider.min);
+      const max = parseInt(slider.max);
+      const val = parseInt(slider.value);
+      const pct = ((val - min) / (max - min)) * 100;
+      slider.style.background = `linear-gradient(to right, var(--teal) 0%, var(--teal) ${pct}%, var(--bg3) ${pct}%, var(--bg3) 100%)`;
+    }
+    slider.addEventListener('input', updateSliderTrack);
+    updateSliderTrack();
+    updatePlanSmsLinks();
+  </script>
+</body>
+</html>
