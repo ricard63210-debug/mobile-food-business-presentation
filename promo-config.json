@@ -1,4 +1,5 @@
+// Update "clientsSignedUp" each time a new client signs up. This is the ONLY number that needs to change.
 {
-  "clientsSignedUp": 14,
+  "clientsSignedUp": 10,
   "promoLimit": 20
 }

@@ -1347,11 +1347,11 @@
               <span class="item-val">desde $49/mes (promo) / desde $139/mes</span>
             </li>
             <li>
-              <span class="item-label">Actualizaciones + hosting + mantenimiento</span>
+              <span class="item-label">Actualizaciones + hosting + mantenimiento (según plan)</span>
               <span class="item-val">Incluido ✓</span>
             </li>
             <li>
-              <span class="item-label">Chatbot IA 24/7</span>
+              <span class="item-label">Chatbot IA 24/7 (según plan)</span>
               <span class="item-val">Incluido ✓</span>
             </li>
             <li>
@@ -1454,15 +1454,12 @@
         <p class="label teal" style="text-align:center;margin-bottom:16px;" data-es="Oferta de lanzamiento" data-en="Launch offer">Oferta de lanzamiento</p>
         <h2 class="h2 final-headline display" data-es="Tu puesto merece una presencia digital." data-en="Your food stand deserves a digital presence.">Tu puesto merece una presencia digital.</h2>
         <p class="final-sub">
-          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="10 clientes sin setup fee" data-en="10 clients with no setup fee">10 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
+          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="20 clientes sin setup fee" data-en="20 clients with no setup fee">20 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
         </p>
         <div class="final-buttons">
-          <a href="https://ricardo-orozco.conect-r.com" target="_blank" rel="noopener" class="btn-primary" id="final-cta-btn">
+          <a href="https://ricardo-orozco.conect-r.com" target="_blank" rel="noopener" class="btn-primary" id="final-cta-btn" style="justify-content: center; width: 100%; max-width: 360px;">
             <span data-es="Agenda tu demo gratis" data-en="Schedule your free demo">Agenda tu demo gratis</span>
             <span class="arrow">→</span>
-          </a>
-          <a href="https://digital-menu-presentation.conect-r.com" target="_blank" rel="noopener" class="btn-ghost">
-            <span data-es="Ver presentación completa" data-en="View full presentation">Ver presentación completa</span>
           </a>
         </div>
       </div>
@@ -1475,7 +1472,6 @@
     <p data-es="Portal digital para puestos de comida y food trucks · Sacramento, CA" data-en="Digital portal for food stands and food trucks · Sacramento, CA">Portal digital para puestos de comida y food trucks · Sacramento, CA</p>
     <div class="footer-links">
       <a href="https://ricardo-orozco.conect-r.com" target="_blank" data-es="Contacto" data-en="Contact">Contacto</a>
-      <a href="https://digital-menu-presentation.conect-r.com" target="_blank" data-es="Presentación" data-en="Presentation">Presentación</a>
     </div>
     <p style="font-size:0.78rem;opacity:0.5;">© 2025 Conect-R. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
   </footer>
@@ -1526,13 +1522,16 @@
     const smsNumber = '9168120873';
 
     let promoActive = true; // will be updated after fetch
-    let clientsSignedUp = 14;
+    let clientsSignedUp = 10;
     let promoLimit = 20;
 
     async function loadPromoConfig() {
       try {
         const res = await fetch('promo-config.json?_=' + Date.now());
-        const cfg = await res.json();
+        const text = await res.text();
+        // Strip single-line comments before parsing JSON
+        const cleanText = text.replace(/\/\/.*$/gm, '');
+        const cfg = JSON.parse(cleanText);
         clientsSignedUp = cfg.clientsSignedUp;
         promoLimit = cfg.promoLimit;
       } catch(e) {
