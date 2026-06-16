@@ -11,7 +11,7 @@
   <meta name="theme-color" content="#00C9A7" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Favicon via inline SVG -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-weight='800' font-size='26' fill='%2300C9A7'>CR</text></svg>" />
@@ -551,15 +551,185 @@
     }
 
     /* ===========================
+       PROMO BANNER
+    =========================== */
+    #promo-banner {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      padding: 12px 24px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    #promo-banner.promo-active {
+      background: linear-gradient(90deg, rgba(212,175,55,0.18) 0%, rgba(0,201,167,0.18) 100%);
+      border-bottom: 1px solid rgba(212,175,55,0.35);
+      color: var(--text);
+    }
+    #promo-banner.promo-closed {
+      background: rgba(0,201,167,0.1);
+      border-bottom: 1px solid rgba(0,201,167,0.25);
+      color: var(--text-muted);
+    }
+    .banner-text { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .banner-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .banner-progress-wrap {
+      width: 100px;
+      height: 5px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .banner-progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transition: width 0.6s ease;
+    }
+
+    /* ===========================
+       MARKET COMPARISON SECTION
+    =========================== */
+    #market-compare {
+      padding: 80px 0 0;
+    }
+    .compare-title {
+      font-family: 'Barlow Condensed', 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-align: center;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .compare-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 28px;
+    }
+    @media (max-width: 680px) {
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+    .compare-card {
+      border-radius: 20px;
+      padding: 36px;
+      border: 1.5px solid;
+    }
+    .compare-card.them {
+      background: var(--red-dim);
+      border-color: rgba(255,75,75,0.25);
+    }
+    .compare-card.us {
+      background: var(--teal-dim);
+      border-color: rgba(0,201,167,0.3);
+    }
+    .compare-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .compare-card-title .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .compare-card.them .badge { background: rgba(255,75,75,0.2); color: var(--red); }
+    .compare-card.us .badge { background: rgba(0,201,167,0.2); color: var(--teal); }
+    .compare-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .compare-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.88rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .compare-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .compare-list .item-label { color: var(--text-muted); flex: 1; }
+    .compare-list .item-val { font-weight: 700; white-space: nowrap; text-align: right; }
+    .compare-card.them .item-val { color: var(--red); }
+    .compare-card.us .item-val { color: var(--teal); }
+    .savings-banner {
+      max-width: 900px;
+      margin: 0 auto 16px;
+      background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(0,201,167,0.12));
+      border: 1.5px solid rgba(212,175,55,0.4);
+      border-radius: 14px;
+      padding: 22px 32px;
+      text-align: center;
+    }
+    .savings-banner .savings-amount {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .savings-banner .savings-msg {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .compare-disclaimer {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      opacity: 0.65;
+      text-align: center;
+      padding-bottom: 60px;
+    }
+
+    /* ===========================
        SECTION 6 — PRICING
     =========================== */
-    #pricing { padding: 100px 0; background: var(--bg2); }
+    #pricing { padding: 60px 0 100px; background: var(--bg2); }
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 800px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -567,7 +737,7 @@
       background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 36px;
+      padding: 28px 24px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -586,51 +756,70 @@
       transform: translateX(-50%);
       background: var(--teal);
       color: #0a0a0a;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 5px 18px;
+      padding: 4px 14px;
       border-radius: 100px;
       white-space: nowrap;
     }
 
-    .plan-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .plan-name { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+
+    .plan-price-block { margin-bottom: 8px; }
     .plan-price {
-      font-size: 3rem;
+      font-size: 2.4rem;
       font-weight: 900;
       color: var(--teal);
-      margin-bottom: 4px;
       line-height: 1;
+      display: inline;
     }
-    .plan-period { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+    .plan-price-strike {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-left: 6px;
+      display: inline;
+    }
+    .plan-period { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
 
-    .plan-badge {
-      display: inline-flex;
+    .plan-setup-line {
+      display: flex;
       align-items: center;
       gap: 6px;
-      background: var(--gold-dim);
-      border: 1px solid rgba(212,175,55,0.3);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding: 6px 10px;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 24px;
     }
-    .plan-badge::before { content: '⭐'; }
+    .plan-setup-line.free {
+      background: rgba(0,201,167,0.1);
+      color: var(--teal);
+    }
+    .plan-setup-line.paid {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+    }
+    .plan-setup-line .setup-strike {
+      text-decoration: line-through;
+      opacity: 0.5;
+      font-weight: 400;
+    }
 
     .plan-features {
       list-style: none;
       flex: 1;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
     .plan-features li {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      padding: 9px 0;
-      font-size: 0.92rem;
+      gap: 8px;
+      padding: 7px 0;
+      font-size: 0.84rem;
       border-bottom: 1px solid var(--border);
     }
     .plan-features li:last-child { border-bottom: none; }
@@ -638,16 +827,16 @@
       color: var(--teal);
       flex-shrink: 0;
       margin-top: 2px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
     .btn-plan {
       display: block;
       text-align: center;
-      padding: 14px 28px;
+      padding: 12px 20px;
       border-radius: 100px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.25s ease;
       text-decoration: none;
@@ -824,6 +1013,9 @@
   </style>
 </head>
 <body>
+
+  <!-- PROMO BANNER -->
+  <div id="promo-banner" role="banner" aria-live="polite"></div>
 
   <!-- LANGUAGE TOGGLE -->
   <button id="lang-toggle" aria-label="Switch language">EN</button>
@@ -1094,48 +1286,110 @@
   </section>
 
   <!-- ============================
+       MARKET COMPARISON
+  ============================= -->
+  <section id="market-compare" class="section">
+    <div class="container">
+      <div class="fade-up">
+        <p class="label teal" style="text-align:center;margin-bottom:12px;">Comparación de mercado</p>
+        <h2 class="compare-title">¿Cuánto cuesta hacer esto<br><span class="teal">en otro lugar?</span></h2>
+        <p class="compare-subtitle">Compara lo que pagarías a un freelancer o agencia vs. lo que pagas con Conect-R</p>
+      </div>
+
+      <div class="compare-grid fade-up delay-1">
+        <!-- Por tu cuenta -->
+        <div class="compare-card them">
+          <div class="compare-card-title">
+            <span>Por tu cuenta</span>
+            <span class="badge">Mercado</span>
+          </div>
+          <ul class="compare-list">
+            <li>
+              <span class="item-label">Sitio web freelance personalizado</span>
+              <span class="item-val">$3,000–$8,000</span>
+            </li>
+            <li>
+              <span class="item-label">Agencia boutique</span>
+              <span class="item-val">$8,000–$15,000</span>
+            </li>
+            <li>
+              <span class="item-label">Mantenimiento anual</span>
+              <span class="item-val">$1,100–$5,000/año</span>
+            </li>
+            <li>
+              <span class="item-label">Chatbot con IA</span>
+              <span class="item-val">No incluido</span>
+            </li>
+            <li>
+              <span class="item-label">Pedidos + panel de cocina</span>
+              <span class="item-val">No incluido</span>
+            </li>
+            <li>
+              <span class="item-label"><strong>Total estimado primer año</strong></span>
+              <span class="item-val" style="font-size:1.05rem;">$4,000–$20,000+</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Con Conect-R -->
+        <div class="compare-card us">
+          <div class="compare-card-title">
+            <span>Con Conect-R</span>
+            <span class="badge">Tu opción</span>
+          </div>
+          <ul class="compare-list">
+            <li>
+              <span class="item-label">Setup</span>
+              <span class="item-val">desde $0 (promo) / desde $99</span>
+            </li>
+            <li>
+              <span class="item-label">Mensualidad</span>
+              <span class="item-val">desde $79/mes</span>
+            </li>
+            <li>
+              <span class="item-label">Actualizaciones + hosting + mantenimiento</span>
+              <span class="item-val">Incluido ✓</span>
+            </li>
+            <li>
+              <span class="item-label">Chatbot IA 24/7</span>
+              <span class="item-val">Incluido ✓</span>
+            </li>
+            <li>
+              <span class="item-label">Pedidos + panel de cocina</span>
+              <span class="item-val">Incluido (según plan) ✓</span>
+            </li>
+            <li>
+              <span class="item-label"><strong>Total estimado primer año</strong></span>
+              <span class="item-val" style="font-size:1.05rem;">$948–$2,388</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="savings-banner fade-up delay-2">
+        <span class="savings-amount">💰 Ahorras hasta $18,000+ tu primer año</span>
+        <span class="savings-msg">frente a una agencia o freelancer del mercado</span>
+      </div>
+
+      <p class="compare-disclaimer fade-up delay-3">Comparación basada en rangos de mercado reportados en estudios de la industria de desarrollo web 2026 (freelancers y agencias boutique en EE.UU.). Los precios varían según el proveedor.</p>
+    </div>
+  </section>
+
+  <!-- ============================
        SECTION 6 — PRICING
   ============================= -->
-  <section id="pricing" class="section section-alt">
+  <section id="pricing" class="section-alt">
     <div class="container">
-      <div class="section-title fade-up">
+      <div class="section-title fade-up" style="padding-top:60px;">
         <p class="label teal" data-es="Precios transparentes" data-en="Transparent pricing">Precios transparentes</p>
         <h2 class="h2" data-es="Planes diseñados para tu puesto" data-en="Plans designed for your food stand">Planes diseñados para tu puesto</h2>
         <div class="divider"></div>
       </div>
 
-      <div class="pricing-grid">
-        <!-- QR Básico -->
-        <div class="plan-card fade-up">
-          <div class="plan-name" data-es="QR Básico" data-en="QR Basic">QR Básico</div>
-          <div class="plan-price">$49</div>
-          <div class="plan-period" data-es="/mes" data-en="/month">/mes</div>
-          <div class="plan-badge" data-es="Setup gratis (valor $100)" data-en="Free setup (value $100)">Setup gratis (valor $100)</div>
-          <ul class="plan-features">
-            <li><span class="check-icon">✓</span> <span data-es="Menú digital con fotos" data-en="Digital menu with photos">Menú digital con fotos</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Código QR imprimible gratis" data-en="Free printable QR code">Código QR imprimible gratis</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Actualizaciones de menú incluidas" data-en="Menu updates included">Actualizaciones de menú incluidas</span></li>
-          </ul>
-          <a id="btn-basic-sms" href="#" class="btn-plan btn-plan-outline" data-es="Quiero este plan" data-en="I want this plan">Quiero este plan</a>
-        </div>
+      <!-- Cards injected by JS -->
+      <div class="pricing-grid" id="pricing-grid"></div>
 
-        <!-- QR Pro -->
-        <div class="plan-card recommended fade-up delay-1">
-          <div class="plan-recommended-badge" data-es="⭐ Recomendado" data-en="⭐ Recommended">⭐ Recomendado</div>
-          <div class="plan-name">QR Pro</div>
-          <div class="plan-price">$79</div>
-          <div class="plan-period" data-es="/mes" data-en="/month">/mes</div>
-          <div class="plan-badge" data-es="Setup gratis (valor $100)" data-en="Free setup (value $100)">Setup gratis (valor $100)</div>
-          <ul class="plan-features">
-            <li><span class="check-icon">✓</span> <span data-es="Todo lo del plan básico" data-en="Everything in basic plan">Todo lo del plan básico</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Links de pago: Venmo, CashApp, Zelle" data-en="Payment links: Venmo, CashApp, Zelle">Links de pago: Venmo, CashApp, Zelle</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Redes sociales enlazadas" data-en="Linked social media">Redes sociales enlazadas</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Horarios y ubicación" data-en="Hours and location">Horarios y ubicación</span></li>
-            <li><span class="check-icon">✓</span> <span data-es="Asistente IA básico 24/7" data-en="Basic 24/7 AI assistant">Asistente IA básico 24/7</span></li>
-          </ul>
-          <a id="btn-pro-sms" href="#" class="btn-plan btn-plan-solid" data-es="Quiero este plan" data-en="I want this plan">Quiero este plan</a>
-        </div>
-      </div>
+      <p style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-top:32px;padding-bottom:60px;">Sin contratos · Cancelación en cualquier momento · Soporte incluido</p>
     </div>
   </section>
 
@@ -1226,34 +1480,146 @@
 
   <script>
     /* ===========================
+       PRICING DATA & PROMO LOGIC
+    =========================== */
+    const plans = [
+      {
+        name: "QR Menú",
+        setupRegular: 99,
+        monthlyPromo: 79,
+        monthlyRegular: 139,
+        features: ["QR físico imprimible", "Menú digital con fotos", "Actualizaciones ilimitadas de menú"]
+      },
+      {
+        name: "QR Conecta",
+        setupRegular: 129,
+        monthlyPromo: 99,
+        monthlyRegular: 175,
+        features: ["Todo lo de QR Menú", "Botones de contacto (llamar, WhatsApp)", "Links de pago: Venmo, Zelle, CashApp", "Redes sociales enlazadas", "Horarios y ubicación con mapa"]
+      },
+      {
+        name: "QR Interactivo",
+        setupRegular: 169,
+        monthlyPromo: 129,
+        monthlyRegular: 229,
+        recommended: true,
+        features: ["Todo lo de QR Conecta", "Portal animado completo", "Asistente IA 24/7", "Sección de reseñas"]
+      },
+      {
+        name: "QR Cocina",
+        setupRegular: 219,
+        monthlyPromo: 169,
+        monthlyRegular: 299,
+        features: ["Todo lo de QR Interactivo", "Carrito de compra + número de stand", "Panel de cocina en vivo"]
+      },
+      {
+        name: "QR Total",
+        setupRegular: 279,
+        monthlyPromo: 199,
+        monthlyRegular: 349,
+        features: ["Todo lo de QR Cocina", "Checkout con pago real (Stripe)", "Soporte prioritario", "Reportes de ventas mensuales"]
+      }
+    ];
+
+    const smsNumber = '9168120873';
+
+    let promoActive = true; // will be updated after fetch
+    let clientsSignedUp = 14;
+    let promoLimit = 20;
+
+    async function loadPromoConfig() {
+      try {
+        const res = await fetch('promo-config.json?_=' + Date.now());
+        const cfg = await res.json();
+        clientsSignedUp = cfg.clientsSignedUp;
+        promoLimit = cfg.promoLimit;
+      } catch(e) {
+        // defaults remain
+      }
+      promoActive = clientsSignedUp < promoLimit;
+      renderBanner();
+      renderPricingCards();
+    }
+
+    function renderBanner() {
+      const banner = document.getElementById('promo-banner');
+      if (promoActive) {
+        const remaining = promoLimit - clientsSignedUp;
+        const pct = Math.round((clientsSignedUp / promoLimit) * 100);
+        banner.className = 'promo-active';
+        banner.innerHTML = `
+          <span class="banner-text">
+            🔥 <strong>PROMOCIÓN DE APERTURA:</strong> $0 Setup + Precio especial — Solo para los primeros ${promoLimit} clientes
+          </span>
+          <span class="banner-counter">
+            ${clientsSignedUp}/${promoLimit} cupos tomados
+            <span class="banner-progress-wrap"><span class="banner-progress-fill" style="width:${pct}%"></span></span>
+          </span>`;
+      } else {
+        banner.className = 'promo-closed';
+        banner.innerHTML = `<span>✅ Promoción de apertura cerrada — Precios regulares vigentes</span>`;
+      }
+    }
+
+    function renderPricingCards() {
+      const grid = document.getElementById('pricing-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      plans.forEach((plan, i) => {
+        const monthly = promoActive ? plan.monthlyPromo : plan.monthlyRegular;
+        const monthlyOther = promoActive ? plan.monthlyRegular : null;
+        const delay = i === 0 ? '' : `delay-${Math.min(i, 4)}`;
+
+        // Setup line
+        let setupHTML;
+        if (promoActive) {
+          setupHTML = `<div class="plan-setup-line free">🎉 Setup: <strong>GRATIS</strong> <span class="setup-strike">($${plan.setupRegular})</span></div>`;
+        } else {
+          setupHTML = `<div class="plan-setup-line paid">Setup: <strong>$${plan.setupRegular}</strong></div>`;
+        }
+
+        // Monthly price display
+        let priceHTML;
+        if (promoActive) {
+          priceHTML = `
+            <div class="plan-price-block">
+              <span class="plan-price">$${monthly}</span>
+              <span class="plan-price-strike">$${monthlyOther}</span>
+            </div>`;
+        } else {
+          priceHTML = `<div class="plan-price-block"><span class="plan-price">$${monthly}</span></div>`;
+        }
+
+        const featuresHTML = plan.features.map(f =>
+          `<li><span class="check-icon">✓</span> ${f}</li>`
+        ).join('');
+
+        const smsMsg = encodeURIComponent(`Hola Ricardo, me interesa el plan ${plan.name} para mi puesto. ¿Cuándo podemos hablar?`);
+        const btnClass = plan.recommended ? 'btn-plan-solid' : 'btn-plan-outline';
+        const recBadge = plan.recommended ? '<div class="plan-recommended-badge">⭐ Recomendado</div>' : '';
+        const recClass = plan.recommended ? 'plan-card recommended' : 'plan-card';
+
+        grid.innerHTML += `
+          <div class="${recClass} fade-up ${delay}">
+            ${recBadge}
+            <div class="plan-name">${plan.name}</div>
+            ${priceHTML}
+            <div class="plan-period">/mes · sin contrato</div>
+            ${setupHTML}
+            <ul class="plan-features">${featuresHTML}</ul>
+            <a href="sms:${smsNumber}?body=${smsMsg}" class="btn-plan ${btnClass}">Quiero este plan</a>
+          </div>`;
+      });
+
+      // Re-observe new fade-up elements
+      document.querySelectorAll('#pricing-grid .fade-up').forEach(el => fadeObserver.observe(el));
+    }
+
+    /* ===========================
        LANGUAGE TOGGLE SYSTEM
     =========================== */
     let currentLang = 'es';
-
-    const smsNumber = '9168120873';
-    const smsMessages = {
-      basic: {
-        es: "Hola Ricardo, me interesa el plan QR Básico de $49/mes para mi puesto. ¿Cuándo podemos hablar?",
-        en: "Hi Ricardo, I'm interested in the QR Basic plan at $49/month for my food stand. When can we talk?"
-      },
-      pro: {
-        es: "Hola Ricardo, me interesa el plan QR Pro de $79/mes para mi puesto. ¿Cuándo podemos hablar?",
-        en: "Hi Ricardo, I'm interested in the QR Pro plan at $79/month for my food stand. When can we talk?"
-      }
-    };
-
-    function updatePlanSmsLinks() {
-      const basicBtn = document.getElementById('btn-basic-sms');
-      const proBtn = document.getElementById('btn-pro-sms');
-      if (basicBtn) {
-        const msg = smsMessages.basic[currentLang];
-        basicBtn.href = `sms:${smsNumber}?body=${encodeURIComponent(msg)}`;
-      }
-      if (proBtn) {
-        const msg = smsMessages.pro[currentLang];
-        proBtn.href = `sms:${smsNumber}?body=${encodeURIComponent(msg)}`;
-      }
-    }
 
     function setLanguage(lang) {
       currentLang = lang;
@@ -1269,9 +1635,6 @@
 
       // Update dynamic calculator labels
       updateCalcLabels();
-
-      // Update SMS plan links
-      updatePlanSmsLinks();
     }
 
     document.getElementById('lang-toggle').addEventListener('click', () => {
@@ -1279,18 +1642,7 @@
     });
 
     function updateCalcLabels() {
-      const isEs = currentLang === 'es';
-      const monthLabel = isEs ? '/mes' : '/mo';
-      const yearLabel = isEs ? '/año' : '/yr';
-      const diffMonthSuffix = isEs ? '/mes' : '/mo';
-      const diffAnnualSuffix = isEs ? '/año' : '/yr';
-
-      // Update diff labels
-      updateDiffLabels(diffMonthSuffix, diffAnnualSuffix);
-    }
-
-    function updateDiffLabels(monthSuffix, yearSuffix) {
-      // Called from updateCalc, just ensures correct suffixes
+      // suffixes handled inside updateCalc
     }
 
     /* ===========================
@@ -1456,7 +1808,9 @@
     }
     slider.addEventListener('input', updateSliderTrack);
     updateSliderTrack();
-    updatePlanSmsLinks();
+
+    // Load promo config & render everything
+    loadPromoConfig();
   </script>
 </body>
 </html>
