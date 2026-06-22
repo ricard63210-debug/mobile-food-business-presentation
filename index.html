@@ -1344,7 +1344,7 @@
             </li>
             <li>
               <span class="item-label">Mensualidad</span>
-              <span class="item-val">desde $49/mes (promo) / desde $139/mes</span>
+              <span class="item-val">desde $49/mes (promo) / desde $99/mes</span>
             </li>
             <li>
               <span class="item-label">Actualizaciones + hosting + mantenimiento (según plan)</span>
@@ -1360,7 +1360,7 @@
             </li>
             <li>
               <span class="item-label"><strong>Total estimado primer año</strong></span>
-              <span class="item-val" style="font-size:1.05rem;">$948–$2,388</span>
+              <span class="item-val" style="font-size:1.05rem;">$588–$2,388</span>
             </li>
           </ul>
         </div>
@@ -1454,7 +1454,7 @@
         <p class="label teal" style="text-align:center;margin-bottom:16px;" data-es="Oferta de lanzamiento" data-en="Launch offer">Oferta de lanzamiento</p>
         <h2 class="h2 final-headline display" data-es="Tu puesto merece una presencia digital." data-en="Your food stand deserves a digital presence.">Tu puesto merece una presencia digital.</h2>
         <p class="final-sub">
-          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="20 clientes sin setup fee" data-en="20 clients with no setup fee">20 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
+          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="10 clientes sin setup fee" data-en="10 clients with no setup fee">10 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
         </p>
         <div class="final-buttons">
           <a href="https://ricardo-orozco.conect-r.com" target="_blank" rel="noopener" class="btn-primary" id="final-cta-btn" style="justify-content: center; width: 100%; max-width: 360px;">
@@ -1482,40 +1482,95 @@
     =========================== */
     const plans = [
       {
-        name: "QR Menú",
+        name: { es: "QR Básico", en: "QR Basic" },
         setupRegular: 99,
         monthlyPromo: 49,
-        monthlyRegular: 139,
-        features: ["QR físico imprimible", "Menú digital con fotos", "1 actualización de menú al mes"]
+        monthlyRegular: 99,
+        features: {
+          es: ["QR físico imprimible", "Menú digital interactivo con fotos", "1 actualización de menú al mes"],
+          en: ["Printable physical QR code", "Interactive digital menu with photos", "1 menu update per month"]
+        },
+        smsBody: {
+          es: "Hola Ricardo, me interesa el plan QR Básico de $49/mes. ¿Cuándo podemos hablar?",
+          en: "Hi Ricardo, I'm interested in the QR Basic plan at $49/month. When can we talk?"
+        }
       },
       {
-        name: "QR Conecta",
+        name: { es: "QR Portal", en: "QR Portal" },
         setupRegular: 129,
         monthlyPromo: 99,
-        monthlyRegular: 175,
-        features: ["Todo lo de QR Menú", "4 actualizaciones de menú/contenido al mes", "Botones de contacto (llamar, WhatsApp)", "Links de pago: Venmo, Zelle, CashApp", "Redes sociales enlazadas", "Horarios y ubicación con mapa"]
+        monthlyRegular: 149,
+        features: {
+          es: [
+            "Todo lo del plan QR Básico",
+            "Portal interactivo con botones personalizados",
+            "Links de pago: Venmo, Zelle, CashApp",
+            "Links de redes sociales",
+            "Próximos eventos",
+            "Botón de quejas internas",
+            "4 actualizaciones de contenido al mes"
+          ],
+          en: [
+            "Everything in QR Basic",
+            "Interactive portal with custom buttons",
+            "Payment links: Venmo, Zelle, CashApp",
+            "Social media links",
+            "Upcoming events",
+            "Internal feedback button",
+            "4 content updates per month"
+          ]
+        },
+        smsBody: {
+          es: "Hola Ricardo, me interesa el plan QR Portal de $99/mes. ¿Cuándo podemos hablar?",
+          en: "Hi Ricardo, I'm interested in the QR Portal plan at $99/month. When can we talk?"
+        }
       },
       {
-        name: "QR Interactivo",
+        name: { es: "QR Inteligente", en: "QR Smart" },
         setupRegular: 169,
-        monthlyPromo: 129,
-        monthlyRegular: 229,
+        monthlyPromo: 149,
+        monthlyRegular: 199,
         recommended: true,
-        features: ["Todo lo de QR Conecta", "Portal animado completo", "Asistente IA 24/7", "Sección de reseñas"]
+        features: {
+          es: [
+            "Todo lo del plan QR Portal",
+            "Agente virtual con inteligencia artificial 24/7",
+            "4 actualizaciones de contenido al mes"
+          ],
+          en: [
+            "Everything in QR Portal",
+            "24/7 virtual AI agent",
+            "4 content updates per month"
+          ]
+        },
+        smsBody: {
+          es: "Hola Ricardo, me interesa el plan QR Inteligente de $149/mes. ¿Cuándo podemos hablar?",
+          en: "Hi Ricardo, I'm interested in the QR Smart plan at $149/month. When can we talk?"
+        }
       },
       {
-        name: "QR Cocina",
+        name: { es: "QR Cocina", en: "QR Kitchen" },
         setupRegular: 219,
-        monthlyPromo: 169,
-        monthlyRegular: 299,
-        features: ["Todo lo de QR Interactivo", "Carrito de compra + número de stand", "Panel de cocina en vivo"]
-      },
-      {
-        name: "QR Total",
-        setupRegular: 279,
         monthlyPromo: 199,
-        monthlyRegular: 349,
-        features: ["Todo lo de QR Cocina", "Checkout con pago real (Stripe)", "Soporte prioritario", "Reportes de ventas mensuales"]
+        monthlyRegular: 299,
+        features: {
+          es: [
+            "Todo lo del plan QR Inteligente",
+            "Panel de órdenes en línea para cocina",
+            "Compatible con cualquier dispositivo",
+            "4 actualizaciones de contenido al mes"
+          ],
+          en: [
+            "Everything in QR Smart",
+            "Online kitchen order panel",
+            "Works on any device",
+            "4 content updates per month"
+          ]
+        },
+        smsBody: {
+          es: "Hola Ricardo, me interesa el plan QR Cocina de $199/mes. ¿Cuándo podemos hablar?",
+          en: "Hi Ricardo, I'm interested in the QR Kitchen plan at $199/month. When can we talk?"
+        }
       }
     ];
 
@@ -1545,20 +1600,30 @@
     function renderBanner() {
       const banner = document.getElementById('promo-banner');
       if (promoActive) {
-        const remaining = promoLimit - clientsSignedUp;
         const pct = Math.round((clientsSignedUp / promoLimit) * 100);
         banner.className = 'promo-active';
+        
+        const bannerText = currentLang === 'es'
+          ? `🔥 PROMOCIÓN DE APERTURA: $0 Setup — Solo para los primeros 10 clientes`
+          : `🔥 GRAND OPENING PROMO: $0 Setup — First 10 clients only`;
+
+        const counterText = currentLang === 'es'
+          ? `${clientsSignedUp}/${promoLimit} cupos tomados`
+          : `${clientsSignedUp}/${promoLimit} spots taken`;
+
         banner.innerHTML = `
           <span class="banner-text">
-            🔥 <strong>PROMOCIÓN DE APERTURA:</strong> $0 Setup + Precio especial — Solo para los primeros ${promoLimit} clientes
+            ${bannerText}
           </span>
           <span class="banner-counter">
-            ${clientsSignedUp}/${promoLimit} cupos tomados
+            ${counterText}
             <span class="banner-progress-wrap"><span class="banner-progress-fill" style="width:${pct}%"></span></span>
           </span>`;
       } else {
         banner.className = 'promo-closed';
-        banner.innerHTML = `<span>✅ Promoción de apertura cerrada — Precios regulares vigentes</span>`;
+        banner.innerHTML = currentLang === 'es'
+          ? `<span>✅ Promoción de apertura cerrada — Precios regulares vigentes</span>`
+          : `<span>✅ Grand opening promo closed — Regular prices in effect</span>`;
       }
     }
 
@@ -1575,9 +1640,15 @@
         // Setup line
         let setupHTML;
         if (promoActive) {
-          setupHTML = `<div class="plan-setup-line free">🎉 Setup: <strong>GRATIS</strong> <span class="setup-strike">($${plan.setupRegular})</span></div>`;
+          const badgeText = currentLang === 'es'
+            ? `Setup: GRATIS (valor $${plan.setupRegular})`
+            : `Setup: FREE (value $${plan.setupRegular})`;
+          setupHTML = `<div class="plan-setup-line free">🎉 <strong>${badgeText}</strong></div>`;
         } else {
-          setupHTML = `<div class="plan-setup-line paid">Setup: <strong>$${plan.setupRegular}</strong></div>`;
+          const badgeText = currentLang === 'es'
+            ? `Setup: <strong>$${plan.setupRegular}</strong>`
+            : `Setup: <strong>$${plan.setupRegular}</strong>`;
+          setupHTML = `<div class="plan-setup-line paid">${badgeText}</div>`;
         }
 
         // Monthly price display
@@ -1592,24 +1663,27 @@
           priceHTML = `<div class="plan-price-block"><span class="plan-price">$${monthly}</span></div>`;
         }
 
-        const featuresHTML = plan.features.map(f =>
+        const featuresHTML = plan.features[currentLang].map(f =>
           `<li><span class="check-icon">✓</span> ${f}</li>`
         ).join('');
 
-        const smsMsg = encodeURIComponent(`Hola Ricardo, me interesa el plan ${plan.name} para mi puesto. ¿Cuándo podemos hablar?`);
+        const smsMsg = encodeURIComponent(currentLang === 'es' ? plan.smsBody.es : plan.smsBody.en);
         const btnClass = plan.recommended ? 'btn-plan-solid' : 'btn-plan-outline';
-        const recBadge = plan.recommended ? '<div class="plan-recommended-badge">⭐ Recomendado</div>' : '';
+        const recBadgeText = currentLang === 'es' ? '⭐ Recomendado' : '⭐ Recommended';
+        const recBadge = plan.recommended ? `<div class="plan-recommended-badge">${recBadgeText}</div>` : '';
         const recClass = plan.recommended ? 'plan-card recommended' : 'plan-card';
+        const periodText = currentLang === 'es' ? '/mes · sin contrato' : '/month · no contract';
+        const btnText = currentLang === 'es' ? 'Quiero este plan' : 'I want this plan';
 
         grid.innerHTML += `
           <div class="${recClass} fade-up ${delay}">
             ${recBadge}
-            <div class="plan-name">${plan.name}</div>
+            <div class="plan-name">${plan.name[currentLang]}</div>
             ${priceHTML}
-            <div class="plan-period">/mes · sin contrato</div>
+            <div class="plan-period">${periodText}</div>
             ${setupHTML}
             <ul class="plan-features">${featuresHTML}</ul>
-            <a href="sms:${smsNumber}?body=${smsMsg}" class="btn-plan ${btnClass}">Quiero este plan</a>
+            <a href="sms:${smsNumber}?body=${smsMsg}" class="btn-plan ${btnClass}">${btnText}</a>
           </div>`;
       });
 
@@ -1636,6 +1710,10 @@
 
       // Update dynamic calculator labels
       updateCalcLabels();
+
+      // Update promo banner and pricing cards
+      renderBanner();
+      renderPricingCards();
     }
 
     document.getElementById('lang-toggle').addEventListener('click', () => {
