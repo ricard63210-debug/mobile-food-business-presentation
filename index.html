@@ -1457,7 +1457,7 @@
           <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="10 clientes sin setup fee" data-en="10 clients with no setup fee">10 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
         </p>
         <div class="final-buttons">
-          <a href="https://ricardo-orozco.conect-r.com" target="_blank" rel="noopener" class="btn-primary" id="final-cta-btn" style="justify-content: center; width: 100%; max-width: 360px;">
+          <a href="#" class="btn-primary" id="final-cta-btn" style="justify-content: center; width: 100%; max-width: 360px;">
             <span data-es="Agenda tu demo gratis" data-en="Schedule your free demo">Agenda tu demo gratis</span>
             <span class="arrow">→</span>
           </a>
@@ -1631,6 +1631,7 @@
       promoActive = clientsSignedUp < promoLimit;
       renderBanner();
       renderPricingCards();
+      updateFinalCtaBtn();
     }
 
     function renderBanner() {
@@ -1732,6 +1733,15 @@
     =========================== */
     let currentLang = 'es';
 
+    function updateFinalCtaBtn() {
+      const ctaBtn = document.getElementById('final-cta-btn');
+      if (!ctaBtn) return;
+      const esMsg = "Hola Ricardo, me interesa agendar una demostración gratuita de Conect-R para mi puesto de comida. ¿Cuándo tienes disponibilidad?";
+      const enMsg = "Hi Ricardo, I'd like to schedule a free Conect-R demo for my food stand. When are you available?";
+      const msg = currentLang === 'es' ? esMsg : enMsg;
+      ctaBtn.href = `sms:${smsNumber}?body=${encodeURIComponent(msg)}`;
+    }
+
     function setLanguage(lang) {
       currentLang = lang;
       const btn = document.getElementById('lang-toggle');
@@ -1750,6 +1760,9 @@
       // Update promo banner and pricing cards
       renderBanner();
       renderPricingCards();
+
+      // Update final CTA button link
+      updateFinalCtaBtn();
     }
 
     document.getElementById('lang-toggle').addEventListener('click', () => {
