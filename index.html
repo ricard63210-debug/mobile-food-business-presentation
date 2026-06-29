@@ -8,25 +8,25 @@
   <meta property="og:title" content="Conect-R | Portal Digital para Puestos y Food Trucks" />
   <meta property="og:description" content="Digitaliza tu puesto de comida desde $49/mes. Sin contratos, sin setup fee." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#00C9A7" />
+  <meta name="theme-color" content="#fe6e00" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 
   <!-- Favicon via inline SVG -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230a0a0a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-weight='800' font-size='26' fill='%2300C9A7'>CR</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230a0c10'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,system-ui,sans-serif' font-weight='800' font-size='26' fill='%23fe6e00'>CR</text></svg>" />
 
   <style>
     /* ===========================
        CSS CUSTOM PROPERTIES
     =========================== */
     :root {
-      --bg: #0a0a0a;
-      --bg2: #111111;
-      --bg3: #181818;
-      --teal: #00C9A7;
-      --teal-dim: rgba(0,201,167,0.15);
-      --teal-glow: rgba(0,201,167,0.3);
+      --bg: #0a0c10;      /* deep midnight slate */
+      --bg2: #0e1117;     /* secondary slate */
+      --bg3: #151922;     /* card background */
+      --teal: #fe6e00;    /* brand orange */
+      --teal-dim: rgba(254,110,0,0.15);
+      --teal-glow: rgba(254,110,0,0.3);
       --gold: #D4AF37;
       --gold-dim: rgba(212,175,55,0.15);
       --red: #FF4B4B;
@@ -59,10 +59,10 @@
 
     /* ===========================
        TYPOGRAPHY SCALE
-    =========================== */
-    .display { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
-    .h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
-    .h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; }
+     =========================== */
+    .display { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.1; letter-spacing: -0.01em; }
+    .h2 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.5rem); letter-spacing: -0.01em; }
+    .h3 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
     .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
 
     /* ===========================
@@ -99,12 +99,12 @@
       letter-spacing: 0.1em;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 16px rgba(0,201,167,0.2);
+      box-shadow: 0 4px 16px rgba(254,110,0,0.2);
     }
     #lang-toggle:hover {
       background: var(--teal);
-      color: #0a0a0a;
-      box-shadow: 0 4px 20px rgba(0,201,167,0.4);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(254,110,0,0.4);
     }
 
     /* ===========================
@@ -142,7 +142,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,201,167,0.1) 0%, transparent 70%),
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(254,110,0,0.1) 0%, transparent 70%),
                   radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212,175,55,0.06) 0%, transparent 60%);
       pointer-events: none;
     }
@@ -153,32 +153,18 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(254,110,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(254,110,0,0.04) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
 
     .hero-logo {
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      color: var(--teal);
       margin-bottom: 40px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
       position: relative;
-    }
-    .hero-logo .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.7); }
     }
 
     .hero-badge {
@@ -186,7 +172,7 @@
       align-items: center;
       gap: 8px;
       background: var(--teal-dim);
-      border: 1px solid rgba(0,201,167,0.3);
+      border: 1px solid rgba(254,110,0,0.3);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 0.8rem;
@@ -198,14 +184,21 @@
     .hero-badge::before { content: '📍'; }
 
     .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 600;
       font-size: clamp(2.4rem, 6.5vw, 4.2rem);
-      font-weight: 900;
       line-height: 1.08;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.01em;
       margin-bottom: 20px;
       max-width: 820px;
     }
-    .hero-headline .accent { color: var(--teal); }
+    .hero-headline .accent {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-style: normal;
+      font-weight: 900;
+      color: var(--teal);
+    }
 
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.2rem);
@@ -220,7 +213,7 @@
       align-items: center;
       gap: 10px;
       background: var(--teal);
-      color: #0a0a0a;
+      color: #ffffff;
       font-weight: 700;
       font-size: 1rem;
       padding: 16px 36px;
@@ -228,12 +221,12 @@
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 24px rgba(0,201,167,0.35);
+      box-shadow: 0 4px 24px rgba(254,110,0,0.35);
       text-decoration: none;
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,201,167,0.5);
+      box-shadow: 0 8px 32px rgba(254,110,0,0.5);
     }
     .btn-primary .arrow { transition: transform 0.2s ease; }
     .btn-primary:hover .arrow { transform: translateX(4px); }
@@ -287,7 +280,7 @@
     }
     .stat-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,201,167,0.12);
+      box-shadow: 0 12px 40px rgba(254,110,0,0.12);
     }
     .stat-card .icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
     .stat-card .stat-value {
@@ -344,7 +337,7 @@
       width: 24px; height: 24px;
       border-radius: 50%;
       background: var(--teal);
-      box-shadow: 0 0 12px rgba(0,201,167,0.5);
+      box-shadow: 0 0 12px rgba(254,110,0,0.5);
       cursor: pointer;
       transition: transform 0.15s ease;
     }
@@ -395,13 +388,13 @@
       transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
     }
     .bar-fill.red-bar { background: linear-gradient(90deg, #FF4B4B, #FF8080); }
-    .bar-fill.teal-bar { background: linear-gradient(90deg, #00C9A7, #00E5C0); }
+    .bar-fill.teal-bar { background: linear-gradient(90deg, #fe6e00, #ff8c3a); }
 
     .calc-diff {
       margin-top: 28px;
       padding: 20px 24px;
       background: var(--teal-dim);
-      border: 1px solid rgba(0,201,167,0.3);
+      border: 1px solid rgba(254,110,0,0.3);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
@@ -439,7 +432,7 @@
       width: 48px; height: 48px;
       border-radius: 12px;
       background: var(--teal-dim);
-      border: 1px solid rgba(0,201,167,0.25);
+      border: 1px solid rgba(254,110,0,0.25);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.4rem;
       flex-shrink: 0;
@@ -490,7 +483,7 @@
     }
     .margin-card.with-portal {
       background: var(--teal-dim);
-      border-color: rgba(0,201,167,0.3);
+      border-color: rgba(254,110,0,0.3);
     }
 
     .margin-card-header {
@@ -508,7 +501,7 @@
       border-radius: 4px;
     }
     .margin-badge.red-badge { background: rgba(255,75,75,0.2); color: var(--red); }
-    .margin-badge.teal-badge { background: rgba(0,201,167,0.2); color: var(--teal); }
+    .margin-badge.teal-badge { background: rgba(254,110,0,0.2); color: var(--teal); }
 
     .margin-row {
       display: flex;
@@ -569,13 +562,13 @@
       transition: background 0.4s ease, color 0.4s ease;
     }
     #promo-banner.promo-active {
-      background: linear-gradient(90deg, rgba(212,175,55,0.18) 0%, rgba(0,201,167,0.18) 100%);
+      background: linear-gradient(90deg, rgba(212,175,55,0.18) 0%, rgba(254,110,0,0.18) 100%);
       border-bottom: 1px solid rgba(212,175,55,0.35);
       color: var(--text);
     }
     #promo-banner.promo-closed {
-      background: rgba(0,201,167,0.1);
-      border-bottom: 1px solid rgba(0,201,167,0.25);
+      background: rgba(254,110,0,0.1);
+      border-bottom: 1px solid rgba(254,110,0,0.25);
       color: var(--text-muted);
     }
     .banner-text { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
@@ -614,11 +607,10 @@
       padding: 80px 0 0;
     }
     .compare-title {
-      font-family: 'Barlow Condensed', 'Inter', sans-serif;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
       font-size: clamp(1.8rem, 4.5vw, 3rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.01em;
       text-align: center;
       margin-bottom: 12px;
       line-height: 1.1;
@@ -650,7 +642,7 @@
     }
     .compare-card.us {
       background: var(--teal-dim);
-      border-color: rgba(0,201,167,0.3);
+      border-color: rgba(254,110,0,0.3);
     }
     .compare-card-title {
       font-size: 1.15rem;
@@ -669,7 +661,7 @@
       border-radius: 4px;
     }
     .compare-card.them .badge { background: rgba(255,75,75,0.2); color: var(--red); }
-    .compare-card.us .badge { background: rgba(0,201,167,0.2); color: var(--teal); }
+    .compare-card.us .badge { background: rgba(254,110,0,0.2); color: var(--teal); }
     .compare-list {
       list-style: none;
       display: flex;
@@ -693,7 +685,7 @@
     .savings-banner {
       max-width: 900px;
       margin: 0 auto 16px;
-      background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(0,201,167,0.12));
+      background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(254,110,0,0.12));
       border: 1.5px solid rgba(212,175,55,0.4);
       border-radius: 14px;
       padding: 22px 32px;
@@ -746,7 +738,7 @@
     .plan-card:hover { transform: translateY(-6px); }
     .plan-card.recommended {
       border-color: var(--teal);
-      box-shadow: 0 0 40px rgba(0,201,167,0.15);
+      box-shadow: 0 0 40px rgba(254,110,0,0.15);
     }
 
     .plan-recommended-badge {
@@ -796,7 +788,7 @@
       border-radius: 6px;
     }
     .plan-setup-line.free {
-      background: rgba(0,201,167,0.1);
+      background: rgba(254,110,0,0.1);
       color: var(--teal);
     }
     .plan-setup-line.paid {
@@ -850,11 +842,11 @@
       background: var(--teal);
       color: #0a0a0a;
       border: 2px solid var(--teal);
-      box-shadow: 0 4px 20px rgba(0,201,167,0.3);
+      box-shadow: 0 4px 20px rgba(254,110,0,0.3);
     }
     .btn-plan-solid:hover {
-      background: #00e5c0;
-      box-shadow: 0 6px 28px rgba(0,201,167,0.5);
+      background: #ff8c3a;
+      box-shadow: 0 6px 28px rgba(254,110,0,0.5);
     }
 
     /* ===========================
@@ -928,7 +920,7 @@
     =========================== */
     #final-cta {
       padding: 120px 0;
-      background: linear-gradient(135deg, rgba(0,201,167,0.12) 0%, rgba(0,0,0,0) 60%, rgba(212,175,55,0.06) 100%);
+      background: linear-gradient(135deg, rgba(254,110,0,0.12) 0%, rgba(0,0,0,0) 60%, rgba(212,175,55,0.06) 100%);
       position: relative;
       text-align: center;
     }
@@ -936,7 +928,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,201,167,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(254,110,0,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -1014,8 +1006,7 @@
 </head>
 <body>
 
-  <!-- PROMO BANNER -->
-  <div id="promo-banner" role="banner" aria-live="polite"></div>
+
 
   <!-- LANGUAGE TOGGLE -->
   <button id="lang-toggle" aria-label="Switch language">EN</button>
@@ -1025,8 +1016,7 @@
   ============================= -->
   <section id="hero">
     <div class="hero-logo">
-      <span class="dot"></span>
-      CONECT-R
+      <img src="conectr-logo.png" alt="Conect-R" style="height: 38px; width: auto; display: block; object-fit: contain;" />
     </div>
 
     <div class="hero-badge" data-es="Sacramento, CA · Puestos &amp; Food Trucks" data-en="Sacramento, CA · Food Stands &amp; Food Trucks">Sacramento, CA · Puestos &amp; Food Trucks</div>
@@ -1340,11 +1330,11 @@
           <ul class="compare-list">
             <li>
               <span class="item-label">Setup</span>
-              <span class="item-val">desde $0 (promo) / desde $99</span>
+              <span class="item-val">$0</span>
             </li>
             <li>
               <span class="item-label">Mensualidad</span>
-              <span class="item-val">desde $49/mes (promo) / desde $99/mes</span>
+              <span class="item-val">desde $49/mes</span>
             </li>
             <li>
               <span class="item-label">Actualizaciones + hosting + mantenimiento (según plan)</span>
@@ -1451,10 +1441,10 @@
   <section id="final-cta" class="section">
     <div class="container">
       <div class="fade-up">
-        <p class="label teal" style="text-align:center;margin-bottom:16px;" data-es="Oferta de lanzamiento" data-en="Launch offer">Oferta de lanzamiento</p>
+        <p class="label teal" style="text-align:center;margin-bottom:16px;" data-es="Presencia Digital" data-en="Digital Presence">Presencia Digital</p>
         <h2 class="h2 final-headline display" data-es="Tu puesto merece una presencia digital." data-en="Your food stand deserves a digital presence.">Tu puesto merece una presencia digital.</h2>
         <p class="final-sub">
-          <span data-es="Primeros " data-en="First ">Primeros </span><strong data-es="10 clientes sin setup fee" data-en="10 clients with no setup fee">10 clientes sin setup fee</strong><span data-es=". Cupos limitados." data-en=". Limited spots.">. Cupos limitados.</span>
+          <span data-es="Digitaliza tu negocio hoy. Sin contratos, sin setup fee." data-en="Digitize your business today. No contracts, no setup fee.">Digitaliza tu negocio hoy. Sin contratos, sin setup fee.</span>
         </p>
         <div class="final-buttons">
           <a href="#" class="btn-primary" id="final-cta-btn" style="justify-content: center; width: 100%; max-width: 360px;">
@@ -1468,7 +1458,9 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="logo">CONECT-R</div>
+    <div class="logo" style="margin-bottom: 20px; display: flex; justify-content: center;">
+      <img src="conectr-logo.png" alt="Conect-R" style="height: 32px; width: auto; display: block; object-fit: contain;" />
+    </div>
     <p data-es="Portal digital para puestos de comida y food trucks · Sacramento, CA" data-en="Digital portal for food stands and food trucks · Sacramento, CA">Portal digital para puestos de comida y food trucks · Sacramento, CA</p>
     <div class="footer-links">
       <a href="https://ricardo-orozco.conect-r.com" target="_blank" data-es="Contacto" data-en="Contact">Contacto</a>
@@ -1612,93 +1604,23 @@
 
     const smsNumber = '9168120873';
 
-    let promoActive = true; // will be updated after fetch
-    let clientsSignedUp = 10;
-    let promoLimit = 20;
-
-    async function loadPromoConfig() {
-      try {
-        const res = await fetch('promo-config.json?_=' + Date.now());
-        const text = await res.text();
-        // Strip single-line comments before parsing JSON
-        const cleanText = text.replace(/\/\/.*$/gm, '');
-        const cfg = JSON.parse(cleanText);
-        clientsSignedUp = cfg.clientsSignedUp;
-        promoLimit = cfg.promoLimit;
-      } catch(e) {
-        // defaults remain
-      }
-      promoActive = clientsSignedUp < promoLimit;
-      renderBanner();
-      renderPricingCards();
-      updateFinalCtaBtn();
-    }
-
-    function renderBanner() {
-      const banner = document.getElementById('promo-banner');
-      if (promoActive) {
-        const pct = Math.round((clientsSignedUp / promoLimit) * 100);
-        banner.className = 'promo-active';
-        
-        const bannerText = currentLang === 'es'
-          ? `🔥 PROMOCIÓN DE APERTURA: $0 Setup — Solo para los primeros 10 clientes`
-          : `🔥 GRAND OPENING PROMO: $0 Setup — First 10 clients only`;
-
-        const counterText = currentLang === 'es'
-          ? `${clientsSignedUp}/${promoLimit} cupos tomados`
-          : `${clientsSignedUp}/${promoLimit} spots taken`;
-
-        banner.innerHTML = `
-          <span class="banner-text">
-            ${bannerText}
-          </span>
-          <span class="banner-counter">
-            ${counterText}
-            <span class="banner-progress-wrap"><span class="banner-progress-fill" style="width:${pct}%"></span></span>
-          </span>`;
-      } else {
-        banner.className = 'promo-closed';
-        banner.innerHTML = currentLang === 'es'
-          ? `<span>✅ Promoción de apertura cerrada — Precios regulares vigentes</span>`
-          : `<span>✅ Grand opening promo closed — Regular prices in effect</span>`;
-      }
-    }
-
     function renderPricingCards() {
       const grid = document.getElementById('pricing-grid');
       if (!grid) return;
       grid.innerHTML = '';
 
       plans.forEach((plan, i) => {
-        const monthly = promoActive ? plan.monthlyPromo : plan.monthlyRegular;
-        const monthlyOther = promoActive ? plan.monthlyRegular : null;
+        const monthly = plan.monthlyPromo;
         const delay = i === 0 ? '' : `delay-${Math.min(i, 4)}`;
 
         // Setup line
-        let setupHTML;
-        if (promoActive) {
-          const badgeText = currentLang === 'es'
-            ? `Setup: GRATIS (valor $${plan.setupRegular})`
-            : `Setup: FREE (value $${plan.setupRegular})`;
-          setupHTML = `<div class="plan-setup-line free">🎉 <strong>${badgeText}</strong></div>`;
-        } else {
-          const badgeText = currentLang === 'es'
-            ? `Setup: <strong>$${plan.setupRegular}</strong>`
-            : `Setup: <strong>$${plan.setupRegular}</strong>`;
-          setupHTML = `<div class="plan-setup-line paid">${badgeText}</div>`;
-        }
+        const badgeText = currentLang === 'es'
+          ? `Setup: <strong>GRATIS</strong>`
+          : `Setup: <strong>FREE</strong>`;
+        const setupHTML = `<div class="plan-setup-line free">🎉 <strong>${badgeText}</strong></div>`;
 
         // Monthly price display
-        let priceHTML;
-        if (promoActive) {
-          priceHTML = `
-            <div class="plan-price-block">
-              <span class="plan-price">$${monthly}</span>
-              <span class="plan-price-strike">$${monthlyOther}</span>
-            </div>`;
-        } else {
-          priceHTML = `<div class="plan-price-block"><span class="plan-price">$${monthly}</span></div>`;
-        }
+        const priceHTML = `<div class="plan-price-block"><span class="plan-price">$${monthly}</span></div>`;
 
         const featuresHTML = plan.features[currentLang].map(f =>
           `<li><span class="check-icon">✓</span> ${f}</li>`
@@ -1757,8 +1679,7 @@
       // Update dynamic calculator labels
       updateCalcLabels();
 
-      // Update promo banner and pricing cards
-      renderBanner();
+      // Update pricing cards
       renderPricingCards();
 
       // Update final CTA button link
@@ -1937,8 +1858,9 @@
     slider.addEventListener('input', updateSliderTrack);
     updateSliderTrack();
 
-    // Load promo config & render everything
-    loadPromoConfig();
+    // Render everything
+    renderPricingCards();
+    updateFinalCtaBtn();
   </script>
 </body>
 </html>
